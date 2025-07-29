@@ -2,6 +2,10 @@
 
 A minimalist personal finance management app designed for simplicity and clarity. Track your expenses, manage budgets, and gain insights into your financial habits with a clean, distraction-free interface.
 
+## 🚀 Demo
+
+[![Watch the demo](https://img.youtube.com/vi/do0vvD6iGs0/0.jpg)](https://www.youtube.com/watch?v=do0vvD6iGs0)
+
 ## Features
 
 - **Minimalist Design**: Clean, clutter-free interface focused on essential functionality
