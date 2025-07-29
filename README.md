@@ -10,16 +10,14 @@ A minimalist personal finance management app designed for simplicity and clarity
 
 - **Minimalist Design**: Clean, clutter-free interface focused on essential functionality
 - **Expense Tracking**: Easy transaction logging and categorization
-- **Budget Management**: Set and monitor spending limits across categories
 - **Financial Insights**: Visual analytics and spending patterns
-- **Responsive Design**: Works seamlessly across desktop and mobile devices
 - **Data Privacy**: Your financial data stays secure and private
 
 ## Tech Stack
 
 ### Frontend
-- **Framework**: Next.js, React, TypeScript
-- **Styling**: Tailwind CSS, shadcn/ui components
+- **Framework**:  React, NodeJS MongoDB, ExpressJS
+- **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Charts**: Recharts for financial visualizations
 
