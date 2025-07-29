@@ -6,9 +6,6 @@ A minimalist personal finance management app designed for simplicity and clarity
 
 [![Watch the demo](https://img.youtube.com/vi/do0vvD6iGs0/0.jpg)](https://www.youtube.com/watch?v=do0vvD6iGs0)
 
-## Note !!
-
-This app might not work at your local machine because i have used my google oauth credentials for authentication, also my mongodb_uri for database which are in the .env and I have not deployed this app yet. But a demo video is attached as the working proof of this project and the whole code is there on the github.
 
 ## Features
 
@@ -20,16 +17,16 @@ This app might not work at your local machine because i have used my google oaut
 ## Tech Stack
 
 ### Frontend
-- **Framework**:  React, NodeJS MongoDB, ExpressJS
+- **Framework**:  React
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Charts**: Recharts for financial visualizations
 
 ### Backend
 - **Runtime**: Node.js
-- **Database**: [Your database choice]
+- **Database**: MongoDB
 - **API**: RESTful API design
-- **Authentication**: [Your auth solution]
+- **Authentication**: Google OAuth
 
 ## Getting Started
 
@@ -85,12 +82,41 @@ cp .env.example .env.local
 PORT=5000
 DATABASE_URL=your_database_url
 JWT_SECRET=your_jwt_secret
+
+# Google OAuth Configuration
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
 ```
 
 **Frontend (.env.local):**
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
+VITE_PUBLIC_API_URL=http://localhost:5000
+
+# Google OAuth (Frontend)
+VITE_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
 ```
+
+## Google OAuth Setup
+
+To enable Google OAuth authentication, you'll need to:
+
+1. **Create Google OAuth Credentials:**
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the Google+ API
+   - Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs"
+   - Set application type to "Web application"
+   - Add authorized redirect URIs:
+     - `http://localhost:5000/api/auth/google/callback` (for development)
+     - `https://yourdomain.com/api/auth/google/callback` (for production)
+
+2. **Configure Environment Variables:**
+   - Copy the Client ID and Client Secret from Google Cloud Console
+   - Add them to your `.env` files as shown above
+   - The `NEXT_PUBLIC_GOOGLE_CLIENT_ID` is used for frontend Google Sign-In button
+   - The backend credentials are used for server-side OAuth flow
+
 
 ### Running the Application
 
@@ -116,7 +142,7 @@ The frontend will run on [http://localhost:3000](http://localhost:3000)
 
 ## Usage
 
-### Getting Started with Typeface
+### Getting Started
 
 1. **Create Account**: Sign up with your email to get started
 2. **Add Transactions**: Log your income and expenses with simple forms
@@ -129,7 +155,6 @@ The frontend will run on [http://localhost:3000](http://localhost:3000)
 - **Quick Add**: Rapidly input transactions with keyboard shortcuts
 - **Smart Categorization**: Automatic category suggestions based on transaction details
 - **Monthly Overview**: Clear monthly spending summaries
-- **Goal Tracking**: Monitor progress toward financial goals
 
 ## Project Structure
 
@@ -199,68 +224,11 @@ npm run start        # Start production server
 npm run lint         # Run ESLint
 ```
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes in the appropriate folder (backend or frontend)
-4. Commit your changes: `git commit -m 'Add amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
-
-## Design Philosophy
-
-Typeface Project follows minimalist design principles:
-
-- **Clarity over Complexity**: Every feature serves a clear purpose
-- **Typography-First**: Clean, readable fonts and text hierarchy
-- **Purposeful Color**: Limited color palette for better focus
-- **Intuitive Navigation**: Simple, predictable user flows
-- **Mobile-First**: Responsive design that works everywhere
-
-## Testing
-
-**Backend Tests:**
-```bash
-cd backend
-npm test
-```
-
-**Frontend Tests:**
-```bash
-cd frontend
-npm test
-```
-
-## Deployment
-
-### Backend Deployment
-1. Build the backend: `cd backend && npm run build`
-2. Deploy to your preferred hosting service (Railway, Render, etc.)
-3. Set environment variables in your hosting platform
-
-### Frontend Deployment (Vercel)
-1. Push your code to GitHub
-2. Connect the `frontend` folder to Vercel
-3. Configure environment variables in Vercel dashboard
-4. Deploy automatically on push to main branch
-
-## License
-
-MIT License
-
 ## Support
 
 For support and questions:
 - Create an issue on GitHub
 - Email: cbhaumik08@gmail.com
-
-## Roadmap
-
-- [ ] Bank account integration
-- [ ] Advanced analytics and reporting
-- [ ] Multi-currency support
-- [ ] Data export functionality
 
 ---
 
