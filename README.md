@@ -232,8 +232,5 @@ For support and questions:
 
 ---
 
-Built with ❤️ for better financial clarity and peace of mind.
-```
-
-This README is specifically tailored for your Typeface Project with the correct folder structure and running commands for both backend and frontend servers.
+Built with ❤️ by Bhaumik Chauhan
 
