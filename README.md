@@ -6,6 +6,10 @@ A minimalist personal finance management app designed for simplicity and clarity
 
 [![Watch the demo](https://img.youtube.com/vi/do0vvD6iGs0/0.jpg)](https://www.youtube.com/watch?v=do0vvD6iGs0)
 
+## Note !!
+
+This app might not work at your local machine because i have used my google oauth credentials for authentication, also my mongodb_uri for database which are in the .env and I have not deployed this app yet. But a demo video is attached as the working proof of this project and the whole code is there on the github.
+
 ## Features
 
 - **Minimalist Design**: Clean, clutter-free interface focused on essential functionality
