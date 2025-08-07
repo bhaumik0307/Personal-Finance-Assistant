@@ -41,7 +41,7 @@ const useAuthStore = create((set) => ({
   loginWithGoogle: () => {
     set({ authLoading: true, error: "" })
     try {
-      window.location.href = "http://localhost:5000/auth/google"
+      window.location.href = `${VITE_API_URL}/auth/google`
     } catch (error) {
       set({ error: "Failed to initiate Google login. Please try again.", authLoading: false })
     }

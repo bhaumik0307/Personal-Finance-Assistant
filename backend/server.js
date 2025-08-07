@@ -47,6 +47,6 @@ app.get("/api/health", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+  console.log(`Server running on ${process.env.BASE_URL} ` + `http://localhost:${PORT}`);
   connectDB();
 });
