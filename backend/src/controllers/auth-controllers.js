@@ -5,7 +5,7 @@ export const googleAuth = (req, res, next) => {
   };
   
   export const googleCallback = (req, res) => {
-    res.redirect("http://localhost:5173/all-transactions"); // your frontend URL
+    res.redirect(`${process.env.FRONT_END_URL}/all-transactions`); // your frontend URL
   };
   
   export const getCurrentUser = (req, res) => {
