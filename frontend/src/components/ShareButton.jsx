@@ -8,8 +8,14 @@ const ShareButton = () => {
     const generateShareableLink = async () => {
         try {
             const response = await axios.post("/generate-shareable-link");
-            setShareableLink(response.data.shareableLink);
-            setIsCopied(false); // Reset copy status
+            const token = response.data.token;
+
+            if(token){
+                const frontendUrl = window.location.origin;
+                const link = `${frontendUrl}/shared-transactions?token=${token}`;
+                setShareableLink(link);
+                setIsCopied(false); // Reset copy status
+            }
         } catch (error) {
             console.error("Error generating shareable link:", error);
         }

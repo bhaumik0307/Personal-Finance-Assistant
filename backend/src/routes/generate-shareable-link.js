@@ -33,10 +33,7 @@ router.post("/", async (req, res) =>{
 
             await token.save();
         }
-
-        const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
-        const shareableLink = `${frontendUrl}/shared-transactions?token=${token.token}`;
-        res.json({shareableLink});
+        res.json({token: token.token});
     } catch (error) {
         console.error("Error generating shareable link:", error);
         res.status(500).json({ error: "Internal server error" });
