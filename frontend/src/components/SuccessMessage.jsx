@@ -1,4 +1,4 @@
-"use client"
+
 import React from "react";
 const SuccessMessage = ({ message }) => (
   <div className="p-4 bg-green-50 border-b border-green-200">

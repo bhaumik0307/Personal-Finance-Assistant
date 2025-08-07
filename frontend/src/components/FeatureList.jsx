@@ -1,4 +1,4 @@
-"use client"
+
 import React from "react";
 const FeatureItem = ({ children, iconColor = "text-green-500" }) => (
   <div className="flex items-center space-x-3 text-sm text-gray-600">

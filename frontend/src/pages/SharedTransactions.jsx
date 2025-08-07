@@ -4,7 +4,6 @@ import TransactionTable from "../components/TransactionTable";
 import Pagination from "../components/Pagination";
 import TransactionSummaryCards from "../components/TransactionSummaryCards";
 import axios from "../utils/axios";
-import { set } from "mongoose";
 
 const SharedTransactions = () => {
     const [user, setUser] = useState({});

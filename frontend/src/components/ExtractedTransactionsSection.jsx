@@ -1,4 +1,4 @@
-"use client"
+
 import React from "react";
 import ExtractedTransactionsTable from "./ExtractedTransactionsTable"
 import LoadingSpinner from "./LoadingSpinner"

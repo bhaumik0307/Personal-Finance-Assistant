@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState, useEffect, useCallback } from "react"
 import useAuthStore from "../store/authStore"
 import useTransactionStore from "../store/transactionStore"

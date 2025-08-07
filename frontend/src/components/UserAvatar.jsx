@@ -1,4 +1,4 @@
-"use client"
+
 import React from "react";
 const UserAvatar = ({ user, size = "24" }) => (
   <div className={`w-${size} h-${size} mx-auto mb-4 relative`}>

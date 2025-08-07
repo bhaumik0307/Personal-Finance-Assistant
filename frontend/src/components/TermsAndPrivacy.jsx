@@ -1,4 +1,4 @@
-"use client"
+
 import React from "react";
 const TermsAndPrivacy = () => (
   <div className="text-xs text-gray-500 text-center bg-gray-50 p-3 rounded-lg">

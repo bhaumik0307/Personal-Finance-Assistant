@@ -1,4 +1,4 @@
-"use client"
+
 import React from "react";
 const ExtractedTransactionsTable = ({ transactions }) => {
   const formatCurrency = (amount) => {
