@@ -12,7 +12,6 @@ export const getLatestTransactions = async (req, res) => {
       count: transactions.length,
     });
   } catch (error) {
-    console.error("Get transactions error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch transactions",
@@ -23,6 +22,10 @@ export const getLatestTransactions = async (req, res) => {
 // No limit get transactions by user and date range
 export const getTransactionsByUserAndDate = async (req, res) => {
   try {
+    const requestedUserId = req.params.userid;
+    if (req.user.id !== requestedUserId) {
+      return res.status(403).json({ error: "Forbidden: You can't access another user's data" });
+    }
     const { userid } = req.params;
     const { start, end } = req.query;
 
@@ -42,7 +45,6 @@ export const getTransactionsByUserAndDate = async (req, res) => {
       count: transactions.length,
     });
   } catch (error) {
-    console.error("Error fetching user transactions:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch user transactions",
@@ -122,7 +124,6 @@ export const createTransaction = async (req, res) => {
       data: transaction,
     });
   } catch (error) {
-    console.error("Create transaction error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to create transaction",
@@ -131,6 +132,10 @@ export const createTransaction = async (req, res) => {
 };
 
 export const deleteTransaction = async (req, res) => {
+  const requestedUserId = req.params.userId;
+  if (req.user.id !== requestedUserId) {
+    return res.status(403).json({ error: "Forbidden: You can't access another user's data" });
+  }
   try {
     const transaction = await Transaction.findOneAndDelete({
       _id: req.params.id,
@@ -149,7 +154,6 @@ export const deleteTransaction = async (req, res) => {
       message: "Transaction deleted successfully",
     });
   } catch (error) {
-    console.error("Delete transaction error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to delete transaction",

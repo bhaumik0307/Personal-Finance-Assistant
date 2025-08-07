@@ -13,8 +13,6 @@ export const parseTransactionData = (text) => {
   const transactions = []
   const lines = text.split("\n")
 
-  console.log("Total lines to process:", lines.length)
-
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim()
 
@@ -78,14 +76,10 @@ export const parseTransactionData = (text) => {
         }
 
         transactions.push(transaction)
-
-        console.log(`Extracted: ${transactionDate} - ${description} - ${type} - ₹${transactionAmount}`)
       } catch (error) {
         console.log("Error parsing line:", line, error)
       }
     }
   }
-
-  console.log("Total extracted transactions:", transactions.length)
   return transactions.filter((t) => t.amount > 0 && t.description.length > 2)
 }

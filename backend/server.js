@@ -10,7 +10,7 @@ import passport from "passport";
 
 import authRoutes from "./src/routes/auth.js";
 import txRoutes from "./src/routes/transactions.js";
-import pdfRoutes from "./src/routes/pdf.js";
+import generateShareableLinkRoutes from "./src/routes/generate-shareable-link.js";
 
 dotenv.config();
 
@@ -39,7 +39,7 @@ app.use(passport.session());
 
 app.use("/auth", authRoutes);
 app.use("/api/transactions", txRoutes);
-app.use("/api/pdf", pdfRoutes);
+app.use("/generate-shareable-link", generateShareableLinkRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

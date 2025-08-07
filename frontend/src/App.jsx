@@ -7,6 +7,7 @@ import UserProfile from "./pages/UserProfile"
 import Reports from "./pages/Reports"
 import AddTransaction from "./pages/AddTransaction"
 import ProtectedRoute from "./components/ProtectedRoute"
+import SharedTransactions from "./pages/SharedTransactions"
 import "./App.css"
 import AllTransactions from "./pages/AllTransactions"
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/shared-transactions" element={<SharedTransactions />} />
 
           {/* Protected Routes */}
           <Route
@@ -45,6 +47,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+
           {/* Single route for adding transactions */}
           <Route
             path="/add-transaction"

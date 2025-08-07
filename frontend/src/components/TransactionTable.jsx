@@ -1,28 +1,28 @@
-"use client"
 import React from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const TransactionTable = ({
   transactions,
   loading,
-  selectedTransactions,
-  onSelectTransaction,
-  onSelectAll,
-  onDeleteSelected,
-  sortBy,
-  sortOrder,
-  onSort,
-  currentPage,
-  itemsPerPage,
-  totalTransactions,
+  selectedTransactions = [],
+  onSelectTransaction = () => {},
+  onSelectAll = () => {},
+  onDeleteSelected = () => {},
+  sortBy = "date",
+  sortOrder = "asc",
+  onSort = () => {},
+  currentPage = 1,
+  itemsPerPage = 20,
+  totalTransactions = 0,
+  shared = false,
 }) => {
   // Format currency
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
-    }).format(amount)
-  }
+    }).format(amount);
+  };
 
   // Format date
   const formatDate = (date) => {
@@ -30,34 +30,34 @@ const TransactionTable = ({
       year: "numeric",
       month: "short",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   // Get current page transactions
   const getCurrentPageTransactions = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage
-    const endIndex = startIndex + itemsPerPage
-    return transactions.slice(startIndex, endIndex)
-  }
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return transactions.slice(startIndex, endIndex);
+  };
 
-  const currentPageTransactions = getCurrentPageTransactions()
+  const currentPageTransactions = getCurrentPageTransactions();
 
   // Handle sort click
   const handleSortClick = (field) => {
-    console.log("Sort clicked:", field)
-    onSort(field)
-  }
+    console.log("Sort clicked:", field);
+    onSort(field);
+  };
 
   // Handle select all
   const handleSelectAll = () => {
-    const currentPageIds = currentPageTransactions.map((t) => t._id)
-    onSelectAll(currentPageIds)
-  }
+    const currentPageIds = currentPageTransactions.map((t) => t._id);
+    onSelectAll(currentPageIds);
+  };
 
   // Handle individual selection
   const handleSelectTransaction = (transactionId) => {
-    onSelectTransaction(transactionId)
-  }
+    onSelectTransaction(transactionId);
+  };
 
   if (loading) {
     return (
@@ -67,7 +67,7 @@ const TransactionTable = ({
           <p className="text-gray-600">Loading transactions...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (transactions.length === 0) {
@@ -85,7 +85,7 @@ const TransactionTable = ({
           <p className="text-gray-600 mb-4">
             {totalTransactions === 0 ? "No transactions found" : "No transactions match your date filter"}
           </p>
-          {totalTransactions === 0 && (
+          {totalTransactions === 0 && !shared && (
             <Link
               to="/add-transaction"
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
@@ -95,7 +95,7 @@ const TransactionTable = ({
           )}
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -103,8 +103,11 @@ const TransactionTable = ({
       {/* Table Header */}
       <div className="p-6 border-b">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-gray-900">Transactions ({transactions.length})</h3>
-          {selectedTransactions.length > 0 && (
+          <h3 className="text-lg font-semibold text-gray-900">
+            Transactions ({transactions.length})
+            {shared && <span className="text-sm font-normal text-gray-500 ml-2">(Shared View)</span>}
+          </h3>
+          {!shared && selectedTransactions.length > 0 && (
             <button
               type="button"
               onClick={onDeleteSelected}
@@ -121,16 +124,20 @@ const TransactionTable = ({
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left">
-                <input
-                  type="checkbox"
-                  checked={
-                    selectedTransactions.length === currentPageTransactions.length && currentPageTransactions.length > 0
-                  }
-                  onChange={handleSelectAll}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-              </th>
+              {/* Checkbox column - only show if not shared */}
+              {!shared && (
+                <th className="px-6 py-3 text-left">
+                  <input
+                    type="checkbox"
+                    checked={
+                      selectedTransactions.length === currentPageTransactions.length && currentPageTransactions.length > 0
+                    }
+                    onChange={handleSelectAll}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                </th>
+              )}
+
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSortClick("date")}
@@ -149,7 +156,9 @@ const TransactionTable = ({
                   )}
                 </div>
               </th>
+
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSortClick("description")}
@@ -168,6 +177,7 @@ const TransactionTable = ({
                   )}
                 </div>
               </th>
+
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSortClick("category")}
@@ -186,6 +196,7 @@ const TransactionTable = ({
                   )}
                 </div>
               </th>
+
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSortClick("amount")}
@@ -204,26 +215,37 @@ const TransactionTable = ({
                   )}
                 </div>
               </th>
+
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Payment Method
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
+
+              {/* Actions column - only show if not shared */}
+              {!shared && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              )}
             </tr>
           </thead>
+
           <tbody className="bg-white divide-y divide-gray-200">
             {currentPageTransactions.map((transaction) => (
               <tr key={transaction._id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <input
-                    type="checkbox"
-                    checked={selectedTransactions.includes(transaction._id)}
-                    onChange={() => handleSelectTransaction(transaction._id)}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  />
-                </td>
+                {/* Checkbox cell - only show if not shared */}
+                {!shared && (
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <input
+                      type="checkbox"
+                      checked={selectedTransactions.includes(transaction._id)}
+                      onChange={() => handleSelectTransaction(transaction._id)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                  </td>
+                )}
+
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatDate(transaction.date)}</td>
+
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
                     className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
@@ -233,38 +255,46 @@ const TransactionTable = ({
                     {transaction.type}
                   </span>
                 </td>
+
                 <td className="px-6 py-4 text-sm text-gray-900">
                   <div>
                     <div className="font-medium">{transaction.description}</div>
                     {transaction.notes && <div className="text-gray-500 text-xs mt-1">{transaction.notes}</div>}
                   </div>
                 </td>
+
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.category}</td>
+
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <span className={transaction.type === "income" ? "text-green-600" : "text-red-600"}>
                     {transaction.type === "income" ? "+" : "-"}
                     {formatCurrency(transaction.amount)}
                   </span>
                 </td>
+
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {transaction.paymentMethod || "-"}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button
-                    type="button"
-                    onClick={() => handleSelectTransaction(transaction._id)}
-                    className="text-red-600 hover:text-red-900"
-                  >
-                    Delete
-                  </button>
-                </td>
+
+                {/* Actions cell - only show if not shared */}
+                {!shared && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectTransaction(transaction._id)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TransactionTable
+export default TransactionTable;

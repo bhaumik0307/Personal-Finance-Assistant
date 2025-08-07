@@ -12,8 +12,6 @@ const pdf = require("pdf-parse")
  */
 export const parsePDF = async (req, res) => {
   try {
-    console.log("PDF parse request received")
-
     // Check if file was uploaded
     if (!req.file) {
       return res.status(400).json({
@@ -22,17 +20,9 @@ export const parsePDF = async (req, res) => {
       })
     }
 
-    console.log("File received:", {
-      originalname: req.file.originalname,
-      mimetype: req.file.mimetype,
-      size: req.file.size,
-    })
-
     // Extract text from PDF
     const data = await pdf(req.file.buffer)
     const fullText = data.text
-
-    console.log("Extracted text length:", fullText.length)
 
     // Validate extracted text
     if (!fullText || fullText.length < 100) {
@@ -56,13 +46,9 @@ export const parsePDF = async (req, res) => {
         },
       })
     }
-
-    console.log(`Successfully extracted ${transactions.length} transactions`)
-
     // Return successful response
     res.json(formatSuccessResponse(transactions))
   } catch (error) {
-    console.error("PDF parsing error:", error)
 
     const errorResponse = formatErrorResponse(error)
     const statusCode = error.code === "LIMIT_FILE_SIZE" || error.message === "Only PDF files are allowed" ? 400 : 500

@@ -9,6 +9,7 @@ import Pagination from "../components/Pagination"
 import DeleteModal from "../components/DeleteModal"
 import ErrorAlert from "../components/ErrorAlert"
 import useAuthStore from "../store/authStore"
+import ShareButton from "../components/ShareButton"
 
 const AllTransactions = () => {
   const { user, loading: userLoading, fetchCurrentUser } = useAuthStore()
@@ -166,6 +167,8 @@ const AllTransactions = () => {
           onClearFilters={clearDateFilters}
           filteredCount={transactions.length}
         />
+
+        <ShareButton />
 
         {/* Error Message */}
         <ErrorAlert error={error} onClose={resetMessages} />
