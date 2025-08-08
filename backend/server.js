@@ -22,10 +22,6 @@ const __dirname = path.resolve();
 const app = express();
 app.use(express.json());
 
-app.use(cors({
-  origin: true,
-  credentials: true,
-}));
 
 app.use(
   session({
@@ -36,6 +32,11 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+  
+app.use(cors({
+    origin: true,
+    credentials: true,
+}));
 
 app.use("/auth", authRoutes);
 app.use("/api/transactions", txRoutes);
@@ -47,6 +48,6 @@ app.get("/api/health", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on ${process.env.BASE_URL} ` + `http://localhost:${PORT}`);
+  console.log(`Server running on ${process.env.BASE_URL} `);
   connectDB();
 });

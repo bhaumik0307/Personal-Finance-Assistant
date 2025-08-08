@@ -25,8 +25,7 @@ export const googleAuth = (req, res, next) => {
   };
   
   export const logoutUser = (req, res) => {
-    req.logout(() => {
-      res.redirect("/");
-    });
+    req.logout();
+    res.redirect(`${process.env.FRONT_END_URL}/login`); // your frontend URL
   };
   
