@@ -10,7 +10,15 @@ const ProtectedRoute = ({ children }) => {
   const { user, loading, checkAuth } = useAuthStore()
 
   useEffect(() => {
+    console.log("checking auth")
+
     checkAuth()
+    if(user){
+      console.log("user : ", user);
+    }
+    else{
+      console.log("no user found");
+    }
     // eslint-disable-next-line
   }, [])
 

@@ -28,13 +28,18 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+      httpOnly: true,
+      sameSite: "none", // Required for cross-origin requests
+    },
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
   
 app.use(cors({
-    origin: true,
+    origin: `${process.env.FRONT_END_URL}`,
     credentials: true,
 }));
 
