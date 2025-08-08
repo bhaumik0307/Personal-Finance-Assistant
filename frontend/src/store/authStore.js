@@ -12,8 +12,6 @@ const useAuthStore = create((set) => ({
     set({ loading: true })
     try {
       const response = await axios.get("/auth/me")
-      console.log("hello response : ", response.data)
-      console.log("document cookie : ", document.cookie);
       set({ user: response.data, loading: false })
       if (navigate) navigate("/all-transactions")
     } catch (error) {
