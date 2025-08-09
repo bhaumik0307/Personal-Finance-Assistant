@@ -6,6 +6,8 @@ A minimalist personal finance management app designed for simplicity and clarity
 
 [![Watch the demo](https://img.youtube.com/vi/do0vvD6iGs0/0.jpg)](https://www.youtube.com/watch?v=do0vvD6iGs0)
 
+## Live Link
+[Personal-Finance-Assistant on Vercel](https://personal-finance-assistant-7o3s.vercel.app)
 
 ## Features
 
