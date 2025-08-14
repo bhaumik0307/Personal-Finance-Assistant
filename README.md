@@ -1,4 +1,4 @@
-# Typeface Project
+# Personal-Finance-Assistant
 
 A minimalist personal finance management app designed for simplicity and clarity. Track your expenses, manage budgets, and gain insights into your financial habits with a clean, distraction-free interface.
 
